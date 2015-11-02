@@ -1,0 +1,24 @@
+{
+    "name": "ifyazilim/aktarbakalim",
+    "type": "library",
+    "description": " PHP ile dosya aktarım işlerinde kullanılacak bir kütüphanedir.",
+    "keywords": ["aktar", "export", "dışa aktar"],
+    "homepage": "http://github.com/ifyazilim/aktarbakalim",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "İrfan Evrens",
+            "email": "irfanevrens@gmail.com",
+            "homepage": "https://github.com/irfanevrens"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-4": { "AktarBakalim\\": "src" }
+    }
+}
