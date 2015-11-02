@@ -8,7 +8,6 @@ class Excel extends Aktar
     const XML_ALT = "</Workbook>";
 
     public $kodlama = 'UTF-8';
-    public $baslik = 'Yaprak1';
 
     protected function ustuOlustur()
     {
@@ -18,15 +17,21 @@ class Excel extends Aktar
         $sonuc[] = "\t\t<Style ss:ID=\"sDT\"><NumberFormat ss:Format=\"Short Date\"/></Style>";
         $sonuc[] = "\t</Styles>";
 
-        $sonuc[] = sprintf("\t<Worksheet ss:Name=\"%s\">\n\t<Table>", htmlentities($this->baslik));
-
         return implode("\n", $sonuc) . "\n";
+    }
+
+    public function sayfayaBasla($baslik)
+    {
+        $this->yaz(sprintf("\t<Worksheet ss:Name=\"%s\">\n\t<Table>", htmlentities($baslik)));
+    }
+
+    public function sayfayiBitir()
+    {
+        $this->yaz("\t</Table>\n</Worksheet>\n");
     }
 
     protected function altiOlustur()
     {
-        $sonuc[] = "\t</Table>\n</Worksheet>\n";
-
         $sonuc[] = self::XML_ALT;
 
         return implode("\n", $sonuc);
@@ -39,7 +44,6 @@ class Excel extends Aktar
         foreach ($satir as $icerik) {
 
             $sonuc[] = $this->hucreOlustur($icerik);
-
         }
 
         $sonuc[] = "\t\t</Row>";

@@ -84,7 +84,7 @@ abstract class Aktar
         $this->yaz($this->satirOlustur($satir));
     }
 
-    public function sonuclandir()
+    public function sonlandir()
     {
         $this->yaz($this->altiOlustur());
 
@@ -109,6 +109,14 @@ abstract class Aktar
 
                 break;
         }
+    }
+
+    /**
+     * @deprecated sonlandir metodu kullanılmalı.
+     */
+    public function sonuclandir()
+    {
+        self::sonlandir();
     }
 
     public function yaziIceriginiGetir()
