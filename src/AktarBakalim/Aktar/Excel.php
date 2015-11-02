@@ -22,7 +22,7 @@ class Excel extends Aktar
 
     public function sayfayaBasla($baslik)
     {
-        $this->yaz(sprintf("\t<Worksheet ss:Name=\"%s\">\n\t<Table>", htmlentities($baslik)));
+        $this->yaz(sprintf("\t<Worksheet ss:Name=\"%s\">\n\t\t<Table>", htmlentities($baslik)));
     }
 
     public function sayfayiBitir()
@@ -39,14 +39,14 @@ class Excel extends Aktar
 
     protected function satirOlustur($satir)
     {
-        $sonuc[] = "\t\t<Row>";
+        $sonuc[] = "\t\t\t<Row>";
 
         foreach ($satir as $icerik) {
 
             $sonuc[] = $this->hucreOlustur($icerik);
         }
 
-        $sonuc[] = "\t\t</Row>";
+        $sonuc[] = "\t\t\t</Row>";
 
         return implode("\n", $sonuc) . "\n";
     }
@@ -80,9 +80,9 @@ class Excel extends Aktar
 
         $bilgi = str_replace('&#039;', '&apos;', htmlspecialchars($bilgi, ENT_QUOTES));
 
-        $sonuc[] = empty($stil) ? "\t\t\t<Cell>" : "\t\t\t<Cell ss:StyleID=\"$stil\">";
-        $sonuc[] = sprintf("\t\t\t\t<Data ss:Type=\"%s\">%s</Data>", $tip, $bilgi);
-        $sonuc[] = "\t\t\t</Cell>";
+        $sonuc[] = empty($stil) ? "\t\t\t\t<Cell>" : "\t\t\t\t<Cell ss:StyleID=\"$stil\">";
+        $sonuc[] = sprintf("\t\t\t\t\t<Data ss:Type=\"%s\">%s</Data>", $tip, $bilgi);
+        $sonuc[] = "\t\t\t\t</Cell>";
 
         return implode("\n", $sonuc);
     }
