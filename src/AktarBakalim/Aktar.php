@@ -118,8 +118,8 @@ abstract class Aktar
 
     abstract protected function httpBasliklariniGonder();
 
-    protected function ustuOlustur() {}
-    protected function altiOlustur() {}
+    protected function ustuOlustur() { return null; }
+    protected function altiOlustur() { return null; }
 
     abstract protected function satirOlustur($satir);
 }
