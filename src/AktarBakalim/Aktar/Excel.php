@@ -14,13 +14,13 @@ class Excel extends Aktar
     {
         $sonuc[] = stripslashes(sprintf(self::XML_UST, $this->kodlama));
 
-        $sonuc[] = "<Styles>";
-        $sonuc[] = "<Style ss:ID=\"sDT\"><NumberFormat ss:Format=\"Short Date\"/></Style>";
-        $sonuc[] = "</Styles>";
+        $sonuc[] = "\t<Styles>";
+        $sonuc[] = "\t\t<Style ss:ID=\"sDT\"><NumberFormat ss:Format=\"Short Date\"/></Style>";
+        $sonuc[] = "\t</Styles>";
 
-        $sonuc[] = sprintf("<Worksheet ss:Name=\"%s\">\n\t<Table>", htmlentities($this->baslik));
+        $sonuc[] = sprintf("\t<Worksheet ss:Name=\"%s\">\n\t<Table>", htmlentities($this->baslik));
 
-        return implode("\n", $sonuc);
+        return implode("\n", $sonuc) . "\n";
     }
 
     public function altiOlustur()
@@ -44,7 +44,7 @@ class Excel extends Aktar
 
         $sonuc[] = "\t\t</Row>";
 
-        return implode("\n", $sonuc);
+        return implode("\n", $sonuc) . "\n";
     }
 
     private function hucreOlustur($bilgi)
@@ -54,7 +54,7 @@ class Excel extends Aktar
         // bilgi eğer 15 rakamdan az ise sayı olarak dikkate alalım
         if (preg_match("/^-?\d+(?:[.,]\d+)?$/", $bilgi) && (strlen($bilgi) < 15)) {
 
-            $type = 'Number';
+            $tip = 'Number';
 
         } else if (
                 preg_match("/^(\d{1,2}|\d{4})[\/\-]\d{1,2}[\/\-](\d{1,2}|\d{4})([^\d].+)?$/", $bilgi) &&
@@ -64,21 +64,21 @@ class Excel extends Aktar
 
             // tarih için
 
-            $type = 'DateTime';
+            $tip = 'DateTime';
             $bilgi = strftime("%Y-%m-%dT%H:%M:%S", $timestamp);
             $stil = 'sDT'; // üst içinde tanımlandı, bilgiyi tarih olarak göstersin diye
 
         } else {
 
             // diğer durumlarda
-            $type = 'String';
+            $tip = 'String';
         }
 
         $bilgi = str_replace('&#039;', '&apos;', htmlspecialchars($bilgi, ENT_QUOTES));
 
-        $sonuc[] = empty($stil) ? "<Cell>" : "<Cell ss:StyleID=\"$stil\">";
-        $sonuc[] = sprintf("<Data ss:Type=\"%s\">%s</Data>", $type, $bilgi);
-        $sonuc[] = "</Cell>";
+        $sonuc[] = empty($stil) ? "\t\t\t<Cell>" : "\t\t\t<Cell ss:StyleID=\"$stil\">";
+        $sonuc[] = sprintf("\t\t\t\t<Data ss:Type=\"%s\">%s</Data>", $tip, $bilgi);
+        $sonuc[] = "\t\t\t</Cell>";
 
         return implode("\n", $sonuc);
     }
