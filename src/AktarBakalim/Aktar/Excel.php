@@ -10,7 +10,7 @@ class Excel extends Aktar
     public $kodlama = 'UTF-8';
     public $baslik = 'Yaprak1';
 
-    public function ustuOlustur()
+    protected function ustuOlustur()
     {
         $sonuc[] = stripslashes(sprintf(self::XML_UST, $this->kodlama));
 
@@ -23,7 +23,7 @@ class Excel extends Aktar
         return implode("\n", $sonuc) . "\n";
     }
 
-    public function altiOlustur()
+    protected function altiOlustur()
     {
         $sonuc[] = "\t</Table>\n</Worksheet>\n";
 
@@ -32,7 +32,7 @@ class Excel extends Aktar
         return implode("\n", $sonuc);
     }
 
-    public function satirOlustur($satir)
+    protected function satirOlustur($satir)
     {
         $sonuc[] = "\t\t<Row>";
 
@@ -47,7 +47,7 @@ class Excel extends Aktar
         return implode("\n", $sonuc) . "\n";
     }
 
-    private function hucreOlustur($bilgi)
+    protected function hucreOlustur($bilgi)
     {
         $stil = '';
 
@@ -83,7 +83,7 @@ class Excel extends Aktar
         return implode("\n", $sonuc);
     }
 
-    public function httpBasliklariniGonder()
+    protected function httpBasliklariniGonder()
     {
         header('Content-Type: application/vnd.ms-excel; charset=' . $this->kodlama);
         header('Content-Disposition: inline; filename="' . basename($this->dosyaadi) . '"');
