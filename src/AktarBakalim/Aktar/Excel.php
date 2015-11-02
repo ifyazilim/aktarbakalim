@@ -22,7 +22,7 @@ class Excel extends Aktar
 
     public function sayfayaBasla($baslik)
     {
-        $this->yaz(sprintf("\t<Worksheet ss:Name=\"%s\">\n\t\t<Table>\n", htmlentities($baslik)));
+        $this->yaz(sprintf("\t<Worksheet ss:Name=\"%s\">\n\t\t<Table>\n", $baslik));
     }
 
     public function sayfayiBitir()
